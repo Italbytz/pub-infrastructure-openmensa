@@ -21,7 +21,7 @@ class OpenMensaAPI {
     for (var day in days) {
       if (day.date == requestedDate) {
         if (day.closed) {
-          throw UnsupportedError("message");
+          throw MensaClosedException();
         }
         return http
             .get(Uri.parse(
@@ -29,6 +29,14 @@ class OpenMensaAPI {
             .then((http.Response r) => mealsFromJson(r.body));
       }
     }
-    throw UnsupportedError("message");
+    throw NoMealsForDateException();
+  }
+
+  Future<List<Meal>> getTodaysMeals(int canteen) async {
+    return getMeals(canteen, DateTime.now());
   }
 }
+
+class NoMealsForDateException implements Exception {}
+
+class MensaClosedException implements Exception {}

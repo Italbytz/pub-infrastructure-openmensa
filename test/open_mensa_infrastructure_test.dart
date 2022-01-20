@@ -15,4 +15,15 @@ void main() {
     var days = await api.getDays(42);
     expect(days.isNotEmpty, true);
   });
+
+  test('get meals', () async {
+    final api = OpenMensaAPI();
+    await api.getMeals(42, DateTime.now()).onError((error, stackTrace) {
+      if (!(error is NoMealsForDateException ||
+          error is MensaClosedException)) {
+        fail("Unexpected Error $error");
+      }
+      return [];
+    }).then((value) => expect(value.isNotEmpty, true));
+  });
 }
