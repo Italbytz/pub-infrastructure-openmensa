@@ -43,30 +43,24 @@ class Meal {
 }
 
 class Price {
-  Price({
-    required this.students,
-    required this.employees,
-    required this.pupils,
-    required this.others,
-  });
+  Price({this.students, this.employees, this.pupils, this.others});
 
-  double students;
-  double employees;
-  dynamic pupils;
-  double others;
+  double? students;
+  double? employees;
+  double? pupils;
+  double? others;
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
-        students: json["students"] == null ? null : json["students"].toDouble(),
-        employees:
-            json["employees"] == null ? null : json["employees"].toDouble(),
-        pupils: json["pupils"],
-        others: json["others"] == null ? null : json["others"].toDouble(),
+        students: json["students"]?.toDouble(),
+        employees: json["employees"]?.toDouble(),
+        pupils: json["pupils"]?.toDouble(),
+        others: json["others"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "students": students == null ? null : students,
-        "employees": employees == null ? null : employees,
+        "students": students,
+        "employees": employees,
         "pupils": pupils,
-        "others": others == null ? null : others,
+        "others": others,
       };
 }

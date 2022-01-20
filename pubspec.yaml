@@ -1,6 +1,6 @@
 name: open_mensa_infrastructure
 description: Infrastructure for OpenMensa API
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Italbytz/pub-infrastructure-openmensa
 
 environment:
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
 
   http: ^0.13.4
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

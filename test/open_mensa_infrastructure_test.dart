@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:open_mensa_infrastructure/open_mensa_infrastructure.dart';
+import 'package:open_mensa_infrastructure/src/meal.dart';
 import 'package:open_mensa_infrastructure/src/open_mensa_api.dart';
 
 void main() {
@@ -23,7 +24,14 @@ void main() {
           error is MensaClosedException)) {
         fail("Unexpected Error $error");
       }
-      return [];
+      return [
+        Meal(
+            id: 42,
+            name: "",
+            category: "",
+            prices: Price(employees: 1, others: 1, pupils: 1, students: 1),
+            notes: [])
+      ];
     }).then((value) => expect(value.isNotEmpty, true));
   });
 }
