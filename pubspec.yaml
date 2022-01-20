@@ -1,6 +1,6 @@
 name: open_mensa_infrastructure
 description: Infrastructure for OpenMensa API
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/Italbytz/pub-infrastructure-openmensa
 
 environment:

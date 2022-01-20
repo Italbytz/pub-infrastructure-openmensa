@@ -20,20 +20,21 @@ class OpenMensaAPI {
       "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
 
   Future<List<Meal>> getMeals(int canteen, DateTime date) async {
-    var days = await getDays(canteen);
-    var requestedDate = format(date);
-    for (var day in days) {
-      if (format(day.date) == requestedDate) {
-        if (day.closed) {
-          throw MensaClosedException();
+    return getDays(canteen).then((days) {
+      var requestedDate = format(date);
+      for (var day in days) {
+        if (format(day.date) == requestedDate) {
+          if (day.closed) {
+            throw MensaClosedException();
+          }
+          return http
+              .get(Uri.parse(
+                  "$baseUrl/canteens/$canteen/days/$requestedDate/meals"))
+              .then((http.Response r) => mealsFromJson(r.body));
         }
-        return http
-            .get(Uri.parse(
-                "$baseUrl/canteens/$canteen/days/$requestedDate/meals"))
-            .then((http.Response r) => mealsFromJson(r.body));
       }
-    }
-    throw NoMealsForDateException();
+      throw NoMealsForDateException();
+    });
   }
 
   Future<List<Meal>> getTodaysMeals(int canteen) async {
